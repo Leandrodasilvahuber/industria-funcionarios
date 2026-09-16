@@ -8,6 +8,8 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -53,5 +55,15 @@ class FuncionarioServiceTest {
         assertEquals(0, new BigDecimal("2210.38").compareTo(funcionarios.get(0).getSalario()));
         // 19119.88 * 1.10 = 21031.868 → 21031.87 (arredonda para cima)
         assertEquals(0, new BigDecimal("21031.87").compareTo(funcionarios.get(3).getSalario()));
+    }
+
+    @Test
+    void deveAgruparPorFuncao() {
+        Map<String, List<Funcionario>> grupos = service.agruparPorFuncao(funcionarios);
+
+        assertEquals(List.of("Coordenador", "Diretor", "Eletricista", "Gerente", "Operador"),
+                List.copyOf(grupos.keySet()));
+        assertEquals(List.of("Maria", "João", "Heitor"),
+                grupos.get("Operador").stream().map(Funcionario::getNome).collect(Collectors.toList()));
     }
 }
