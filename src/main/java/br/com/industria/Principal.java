@@ -70,6 +70,10 @@ public class Principal {
         service.buscarMaisVelho(funcionarios).ifPresentOrElse(
                 f -> System.out.println("Nome: " + f.getNome() + " | Idade: " + f.getIdade() + " anos"),
                 () -> System.out.println("Nenhum funcionário cadastrado."));
+
+        // 3.10 – Imprimir a lista de funcionários em ordem alfabética
+        titulo("3.10 – Funcionários em ordem alfabética");
+        imprimirTabela(service.ordenarPorNome(funcionarios));
     }
 
     /** 3.1 – Cria a lista com os funcionários da tabela, na mesma ordem. */

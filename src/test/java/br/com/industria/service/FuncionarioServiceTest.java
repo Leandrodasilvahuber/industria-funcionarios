@@ -89,4 +89,22 @@ class FuncionarioServiceTest {
     void deveRetornarVazioSemFuncionarios() {
         assertTrue(service.buscarMaisVelho(List.of()).isEmpty());
     }
+
+    @Test
+    void deveOrdenarPorNome() {
+        List<Funcionario> ordenados = service.ordenarPorNome(funcionarios);
+
+        assertEquals(List.of("Caio", "Heitor", "Helena", "Heloísa", "João", "Maria", "Miguel"),
+                ordenados.stream().map(Funcionario::getNome).collect(Collectors.toList()));
+        assertEquals("Maria", funcionarios.get(0).getNome()); // original intacta
+    }
+
+    @Test
+    void deveOrdenarNomeComAcentoInicial() {
+        List<Funcionario> lista = List.of(
+                new Funcionario("Zeca",   LocalDate.of(1990, 1, 1), BigDecimal.TEN, "Operador"),
+                new Funcionario("Álvaro", LocalDate.of(1990, 1, 1), BigDecimal.TEN, "Operador"));
+
+        assertEquals("Álvaro", service.ordenarPorNome(lista).get(0).getNome());
+    }
 }

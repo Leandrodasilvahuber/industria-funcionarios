@@ -1,8 +1,10 @@
 package br.com.industria.service;
 
 import br.com.industria.model.Funcionario;
+import br.com.industria.util.FormatadorUtil;
 
 import java.math.BigDecimal;
+import java.text.Collator;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
@@ -44,5 +46,16 @@ public class FuncionarioService {
     public Optional<Funcionario> buscarMaisVelho(List<Funcionario> funcionarios) {
         return funcionarios.stream()
                 .min(Comparator.comparing(Funcionario::getDataNascimento));
+    }
+
+    /**
+     * 3.10 – Retorna uma nova lista ordenada alfabeticamente pelo nome (não altera a original).
+     * Usa Collator pt-BR para ordenar nomes acentuados corretamente.
+     */
+    public List<Funcionario> ordenarPorNome(List<Funcionario> funcionarios) {
+        Collator collator = Collator.getInstance(FormatadorUtil.LOCALE_BR);
+        return funcionarios.stream()
+                .sorted(Comparator.comparing(Funcionario::getNome, collator))
+                .collect(Collectors.toList());
     }
 }
