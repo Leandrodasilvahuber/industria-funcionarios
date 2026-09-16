@@ -64,6 +64,12 @@ public class Principal {
             aniversariantes.forEach(f -> System.out.println(
                     f.getNome() + " – " + FormatadorUtil.formatarData(f.getDataNascimento())));
         }
+
+        // 3.9 – Imprimir o funcionário com a maior idade (nome e idade)
+        titulo("3.9 – Funcionário com a maior idade");
+        service.buscarMaisVelho(funcionarios).ifPresentOrElse(
+                f -> System.out.println("Nome: " + f.getNome() + " | Idade: " + f.getIdade() + " anos"),
+                () -> System.out.println("Nenhum funcionário cadastrado."));
     }
 
     /** 3.1 – Cria a lista com os funcionários da tabela, na mesma ordem. */

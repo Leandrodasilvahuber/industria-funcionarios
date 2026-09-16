@@ -75,4 +75,18 @@ class FuncionarioServiceTest {
         assertEquals(List.of("Maria", "Miguel", "Helena"),
                 resultado.stream().map(Funcionario::getNome).collect(Collectors.toList()));
     }
+
+    @Test
+    void deveEncontrarMaisVelho() {
+        Funcionario maisVelho = service.buscarMaisVelho(funcionarios).orElseThrow();
+
+        assertEquals("Caio", maisVelho.getNome());
+        assertEquals(65, maisVelho.getIdade(LocalDate.of(2026, 5, 2)));  // no dia do aniversário
+        assertEquals(64, maisVelho.getIdade(LocalDate.of(2026, 5, 1)));  // um dia antes
+    }
+
+    @Test
+    void deveRetornarVazioSemFuncionarios() {
+        assertTrue(service.buscarMaisVelho(List.of()).isEmpty());
+    }
 }

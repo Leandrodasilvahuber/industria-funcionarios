@@ -3,8 +3,10 @@ package br.com.industria.service;
 import br.com.industria.model.Funcionario;
 
 import java.math.BigDecimal;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
@@ -36,5 +38,11 @@ public class FuncionarioService {
         return funcionarios.stream()
                 .filter(f -> meses.contains(f.getDataNascimento().getMonthValue()))
                 .collect(Collectors.toList());
+    }
+
+    /** 3.9 – Retorna o funcionário com a maior idade (menor data de nascimento). */
+    public Optional<Funcionario> buscarMaisVelho(List<Funcionario> funcionarios) {
+        return funcionarios.stream()
+                .min(Comparator.comparing(Funcionario::getDataNascimento));
     }
 }
