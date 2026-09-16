@@ -31,7 +31,7 @@ Pré-requisitos: JDK 17+ e Maven 3.8+.
 ```bash
 mvn compile exec:java   # roda a aplicação
 mvn test                 # roda os testes
-mvn package && java -jar target/teste-pratico-java-2-1.0.0.jar
+mvn package && java -jar target/industria-funcionarios-1.0.0.jar
 ```
 
 Pela IDE: abra a pasta como projeto Maven e execute a classe `br.com.industria.Principal`.
