@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<ruleset name="industria-funcionarios"
+         xmlns="http://pmd.sourceforge.net/ruleset/2.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0 https://pmd.sourceforge.io/ruleset_2_0_0.xsd">
+
+    <description>
+        Regras práticas de Best Practices e Error Prone, com exclusões justificadas
+        para este projeto (aplicação de console + testes unitários).
+    </description>
+
+    <rule ref="category/java/bestpractices.xml">
+        <!-- JUnitTestContainsTooManyAsserts: preferência de estilo, não indica defeito real. -->
+        <exclude name="JUnitTestContainsTooManyAsserts"/>
+        <!-- JUnitAssertionsShouldIncludeMessage: os nomes dos métodos de teste em português
+             já descrevem o cenário verificado; mensagens redundantes não agregam valor aqui. -->
+        <exclude name="JUnitAssertionsShouldIncludeMessage"/>
+        <!-- SystemPrintln: Principal.java é uma aplicação de console cujo propósito é
+             imprimir os resultados na saída padrão — não é um code smell neste contexto. -->
+        <exclude name="SystemPrintln"/>
+    </rule>
+
+    <rule ref="category/java/errorprone.xml">
+        <!-- AvoidDuplicateLiterals: strings repetidas são dados de teste (nomes/datas),
+             não constantes de configuração — extrair constantes reduziria a legibilidade. -->
+        <exclude name="AvoidDuplicateLiterals"/>
+    </rule>
+</ruleset>

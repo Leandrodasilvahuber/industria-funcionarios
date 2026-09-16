@@ -12,7 +12,9 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class FuncionarioServiceTest {
 
@@ -39,7 +41,7 @@ class FuncionarioServiceTest {
 
         assertTrue(removido);
         assertEquals(6, funcionarios.size());
-        assertTrue(funcionarios.stream().noneMatch(f -> f.getNome().equals("João")));
+        assertTrue(funcionarios.stream().noneMatch(f -> "João".equals(f.getNome())));
     }
 
     @Test
