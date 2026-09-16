@@ -13,6 +13,7 @@ import java.util.List;
 public class Principal {
 
     private static final String FORMATO_LINHA = "%-10s | %-12s | %13s | %-15s%n";
+    private static final BigDecimal PERCENTUAL_AUMENTO = new BigDecimal("10");
 
     public static void main(String[] args) {
         FuncionarioService service = new FuncionarioService();
@@ -31,6 +32,11 @@ public class Principal {
 
         // 3.3 – Imprimir todos os funcionários com todas as suas informações
         titulo("3.3 – Todos os funcionários");
+        imprimirTabela(funcionarios);
+
+        // 3.4 – Aplicar 10% de aumento e atualizar a lista
+        titulo("3.4 – Salários após aumento de 10%");
+        service.aplicarAumento(funcionarios, PERCENTUAL_AUMENTO);
         imprimirTabela(funcionarios);
     }
 

@@ -44,4 +44,14 @@ class FuncionarioServiceTest {
         assertFalse(service.removerPorNome(funcionarios, "Zé"));
         assertEquals(7, funcionarios.size());
     }
+
+    @Test
+    void deveAplicarAumentoDeDezPorCento() {
+        service.aplicarAumento(funcionarios, new BigDecimal("10"));
+
+        // 2009.44 * 1.10 = 2210.384 → 2210.38
+        assertEquals(0, new BigDecimal("2210.38").compareTo(funcionarios.get(0).getSalario()));
+        // 19119.88 * 1.10 = 21031.868 → 21031.87 (arredonda para cima)
+        assertEquals(0, new BigDecimal("21031.87").compareTo(funcionarios.get(3).getSalario()));
+    }
 }
