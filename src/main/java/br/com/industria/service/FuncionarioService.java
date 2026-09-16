@@ -4,6 +4,7 @@ import br.com.industria.model.Funcionario;
 import br.com.industria.util.FormatadorUtil;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.Collator;
 import java.util.Comparator;
 import java.util.List;
@@ -15,6 +16,9 @@ import java.util.stream.Collectors;
 
 /** Regras de negócio sobre a lista de funcionários. */
 public class FuncionarioService {
+
+    /** Salário mínimo definido no enunciado (requisito 3.12). */
+    public static final BigDecimal SALARIO_MINIMO = new BigDecimal("1212.00");
 
     /** 3.2 – Remove da lista os funcionários com o nome informado. */
     public boolean removerPorNome(List<Funcionario> funcionarios, String nome) {
@@ -64,5 +68,10 @@ public class FuncionarioService {
         return funcionarios.stream()
                 .map(Funcionario::getSalario)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
+    }
+
+    /** 3.12 – Quantos salários mínimos o funcionário ganha. Escala explícita evita ArithmeticException em dízimas. */
+    public BigDecimal calcularQuantidadeSalariosMinimos(Funcionario funcionario) {
+        return funcionario.getSalario().divide(SALARIO_MINIMO, 2, RoundingMode.HALF_UP);
     }
 }

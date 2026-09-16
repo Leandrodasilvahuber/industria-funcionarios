@@ -78,6 +78,14 @@ public class Principal {
         // 3.11 – Imprimir o total dos salários
         titulo("3.11 – Total dos salários");
         System.out.println("Total: " + FormatadorUtil.formatarMoeda(service.calcularTotalSalarios(funcionarios)));
+
+        // 3.12 – Imprimir quantos salários mínimos cada funcionário ganha (usa o salário já com o aumento do 3.4)
+        titulo("3.12 – Quantidade de salários mínimos (R$ "
+                + FormatadorUtil.formatarNumero(FuncionarioService.SALARIO_MINIMO) + ")");
+        funcionarios.forEach(f -> System.out.printf("%-10s | %13s | %s salários mínimos%n",
+                f.getNome(),
+                FormatadorUtil.formatarMoeda(f.getSalario()),
+                FormatadorUtil.formatarNumero(service.calcularQuantidadeSalariosMinimos(f))));
     }
 
     /** 3.1 – Cria a lista com os funcionários da tabela, na mesma ordem. */

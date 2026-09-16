@@ -118,4 +118,11 @@ class FuncionarioServiceTest {
     void totalDeListaVaziaDeveSerZero() {
         assertEquals(0, BigDecimal.ZERO.compareTo(service.calcularTotalSalarios(List.of())));
     }
+
+    @Test
+    void deveCalcularSalariosMinimos() {
+        // 19119.88 / 1212.00 = 15.7754... → 15.78
+        Funcionario miguel = funcionarios.get(3);
+        assertEquals(0, new BigDecimal("15.78").compareTo(service.calcularQuantidadeSalariosMinimos(miguel)));
+    }
 }
