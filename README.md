@@ -1,5 +1,7 @@
 # Teste Prático – Funcionários da Indústria
 
+[![CI](https://github.com/Leandrodasilvahuber/industria-funcionarios/actions/workflows/ci.yml/badge.svg)](https://github.com/Leandrodasilvahuber/industria-funcionarios/actions/workflows/ci.yml)
+
 Aplicação Java de console que cadastra os funcionários de uma indústria e executa as operações pedidas no teste (remoção, aumento salarial, agrupamento por função, filtros, ordenação e totais).
 
 ## Tecnologias
@@ -7,10 +9,15 @@ Aplicação Java de console que cadastra os funcionários de uma indústria e ex
 - Java 17 (compatível com versões mais novas, como a 21)
 - Maven para build e dependências
 - JUnit 5 para testes automatizados
+- Checkstyle e PMD para análise estática
+- GitHub Actions para integração contínua
 
 ## Estrutura
 
 ```
+.github/workflows/ci.yml                 → pipeline de CI (testes + lint)
+checkstyle.xml                           → regras de estilo (Checkstyle)
+pmd-ruleset.xml                          → regras de análise estática (PMD)
 src/
 ├── main/java/br/com/industria/
 │   ├── Principal.java                 → executa os requisitos 3.1 a 3.12
@@ -37,6 +44,25 @@ mvn package && java -jar target/industria-funcionarios-1.0.0.jar
 Pela IDE: abra a pasta como projeto Maven e execute a classe `br.com.industria.Principal`.
 
 > **Windows:** se os acentos aparecerem errados no terminal, execute `chcp 65001` antes de rodar.
+
+## Integração contínua e qualidade de código
+
+Todo `push`/`pull request` para `main` dispara o workflow [`ci.yml`](.github/workflows/ci.yml), que roda `mvn verify` no GitHub Actions — compilação, os 25 testes JUnit, e as checagens de estilo (Checkstyle) e de código (PMD). O build falha se qualquer teste ou regra de lint for violada.
+
+Para rodar as mesmas checagens localmente:
+
+```bash
+mvn verify
+```
+
+As regras de lint ficam em [`checkstyle.xml`](checkstyle.xml) e [`pmd-ruleset.xml`](pmd-ruleset.xml), na raiz do projeto. O ruleset do PMD parte de `bestpractices` e `errorprone`, mas exclui algumas regras que não fazem sentido para este projeto (com a justificativa comentada no próprio arquivo), por exemplo:
+
+| Regra excluída | Motivo |
+|---|---|
+| `SystemPrintln` | `Principal.java` é uma aplicação de console — imprimir na saída padrão é o propósito da classe |
+| `JUnitTestContainsTooManyAsserts` | Preferência de estilo, não indica defeito real |
+| `JUnitAssertionsShouldIncludeMessage` | Nomes dos testes em português já descrevem o cenário verificado |
+| `AvoidDuplicateLiterals` | Strings repetidas nos testes são dados de teste (nomes/datas), não configuração |
 
 ## Decisões técnicas
 
