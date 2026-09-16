@@ -1,6 +1,7 @@
 package br.com.industria;
 
 import br.com.industria.model.Funcionario;
+import br.com.industria.service.FuncionarioService;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -11,10 +12,19 @@ import java.util.List;
 public class Principal {
 
     public static void main(String[] args) {
+        FuncionarioService service = new FuncionarioService();
+
         // 3.1 – Inserir todos os funcionários, na mesma ordem e informações da tabela
         List<Funcionario> funcionarios = carregarFuncionarios();
         titulo("3.1 – Inserir os funcionários");
         System.out.println(funcionarios.size() + " funcionários inseridos na ordem da tabela.");
+
+        // 3.2 – Remover o funcionário "João" da lista
+        titulo("3.2 – Remover o funcionário \"João\"");
+        boolean removido = service.removerPorNome(funcionarios, "João");
+        System.out.println(removido
+                ? "Funcionário João removido. Total de funcionários: " + funcionarios.size()
+                : "Funcionário João não encontrado.");
     }
 
     /** 3.1 – Cria a lista com os funcionários da tabela, na mesma ordem. */
