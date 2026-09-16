@@ -107,4 +107,15 @@ class FuncionarioServiceTest {
 
         assertEquals("Álvaro", service.ordenarPorNome(lista).get(0).getNome());
     }
+
+    @Test
+    void deveCalcularTotalSalarios() {
+        // 2009.44 + 2284.38 + 9836.14 + 19119.88 + 1582.72 + 1606.85 + 2799.93 = 39239.34
+        assertEquals(0, new BigDecimal("39239.34").compareTo(service.calcularTotalSalarios(funcionarios)));
+    }
+
+    @Test
+    void totalDeListaVaziaDeveSerZero() {
+        assertEquals(0, BigDecimal.ZERO.compareTo(service.calcularTotalSalarios(List.of())));
+    }
 }

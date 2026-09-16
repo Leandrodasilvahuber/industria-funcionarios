@@ -58,4 +58,11 @@ public class FuncionarioService {
                 .sorted(Comparator.comparing(Funcionario::getNome, collator))
                 .collect(Collectors.toList());
     }
+
+    /** 3.11 – Soma os salários de todos os funcionários. */
+    public BigDecimal calcularTotalSalarios(List<Funcionario> funcionarios) {
+        return funcionarios.stream()
+                .map(Funcionario::getSalario)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+    }
 }

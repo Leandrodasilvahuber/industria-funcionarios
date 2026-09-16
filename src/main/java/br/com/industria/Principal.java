@@ -74,6 +74,10 @@ public class Principal {
         // 3.10 – Imprimir a lista de funcionários em ordem alfabética
         titulo("3.10 – Funcionários em ordem alfabética");
         imprimirTabela(service.ordenarPorNome(funcionarios));
+
+        // 3.11 – Imprimir o total dos salários
+        titulo("3.11 – Total dos salários");
+        System.out.println("Total: " + FormatadorUtil.formatarMoeda(service.calcularTotalSalarios(funcionarios)));
     }
 
     /** 3.1 – Cria a lista com os funcionários da tabela, na mesma ordem. */
