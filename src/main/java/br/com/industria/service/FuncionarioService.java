@@ -35,7 +35,7 @@ public class FuncionarioService {
         return funcionarios.stream()
                 .collect(Collectors.groupingBy(
                         Funcionario::getFuncao,
-                        TreeMap::new,
+                        () -> new TreeMap<>(Collator.getInstance(FormatadorUtil.LOCALE_BR)),
                         Collectors.toList()));
     }
 
