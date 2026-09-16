@@ -5,6 +5,7 @@ import br.com.industria.model.Funcionario;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
 
@@ -28,5 +29,12 @@ public class FuncionarioService {
                         Funcionario::getFuncao,
                         TreeMap::new,
                         Collectors.toList()));
+    }
+
+    /** 3.8 – Retorna os funcionários que fazem aniversário em algum dos meses informados. */
+    public List<Funcionario> filtrarAniversariantesDosMeses(List<Funcionario> funcionarios, Set<Integer> meses) {
+        return funcionarios.stream()
+                .filter(f -> meses.contains(f.getDataNascimento().getMonthValue()))
+                .collect(Collectors.toList());
     }
 }

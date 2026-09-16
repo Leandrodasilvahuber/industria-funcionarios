@@ -9,6 +9,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -65,5 +66,13 @@ class FuncionarioServiceTest {
                 List.copyOf(grupos.keySet()));
         assertEquals(List.of("Maria", "João", "Heitor"),
                 grupos.get("Operador").stream().map(Funcionario::getNome).collect(Collectors.toList()));
+    }
+
+    @Test
+    void deveFiltrarAniversariantes() {
+        List<Funcionario> resultado = service.filtrarAniversariantesDosMeses(funcionarios, Set.of(10, 12));
+
+        assertEquals(List.of("Maria", "Miguel", "Helena"),
+                resultado.stream().map(Funcionario::getNome).collect(Collectors.toList()));
     }
 }

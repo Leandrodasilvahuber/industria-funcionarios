@@ -9,12 +9,14 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /** Requisito 3: executa as ações 3.1 a 3.12 na ordem do enunciado. */
 public class Principal {
 
     private static final String FORMATO_LINHA = "%-10s | %-12s | %13s | %-15s%n";
     private static final BigDecimal PERCENTUAL_AUMENTO = new BigDecimal("10");
+    private static final Set<Integer> MESES_ANIVERSARIO = Set.of(10, 12);
 
     public static void main(String[] args) {
         FuncionarioService service = new FuncionarioService();
@@ -52,6 +54,16 @@ public class Principal {
         });
 
         // 3.7 – Item inexistente no enunciado (a numeração vai do 3.6 para o 3.8)
+
+        // 3.8 – Imprimir os funcionários que fazem aniversário nos meses 10 e 12
+        titulo("3.8 – Aniversariantes dos meses 10 e 12");
+        List<Funcionario> aniversariantes = service.filtrarAniversariantesDosMeses(funcionarios, MESES_ANIVERSARIO);
+        if (aniversariantes.isEmpty()) {
+            System.out.println("Nenhum funcionário faz aniversário nesses meses.");
+        } else {
+            aniversariantes.forEach(f -> System.out.println(
+                    f.getNome() + " – " + FormatadorUtil.formatarData(f.getDataNascimento())));
+        }
     }
 
     /** 3.1 – Cria a lista com os funcionários da tabela, na mesma ordem. */
