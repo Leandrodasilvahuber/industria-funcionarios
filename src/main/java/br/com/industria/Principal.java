@@ -8,6 +8,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /** Requisito 3: executa as ações 3.1 a 3.12 na ordem do enunciado. */
 public class Principal {
@@ -38,6 +39,19 @@ public class Principal {
         titulo("3.4 – Salários após aumento de 10%");
         service.aplicarAumento(funcionarios, PERCENTUAL_AUMENTO);
         imprimirTabela(funcionarios);
+
+        // 3.5 – Agrupar os funcionários por função em um Map
+        Map<String, List<Funcionario>> funcionariosPorFuncao = service.agruparPorFuncao(funcionarios);
+
+        // 3.6 – Imprimir os funcionários agrupados por função
+        titulo("3.6 – Funcionários agrupados por função");
+        funcionariosPorFuncao.forEach((funcao, lista) -> {
+            System.out.println("\n>> " + funcao + " (" + lista.size() + ")");
+            lista.forEach(f -> System.out.println("   - " + f.getNome()
+                    + " | " + FormatadorUtil.formatarMoeda(f.getSalario())));
+        });
+
+        // 3.7 – Item inexistente no enunciado (a numeração vai do 3.6 para o 3.8)
     }
 
     /** 3.1 – Cria a lista com os funcionários da tabela, na mesma ordem. */
